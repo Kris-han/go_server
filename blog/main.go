@@ -8,8 +8,15 @@ import (
 
 func main() {
 	engine := msgo.New()
-	engine.Add("/hello", func(w http.ResponseWriter, r *http.Request) {
+	g := engine.Group("user")
+	g.Get("/hello", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "%s test", "kris")
+	})
+	g.Post("/info", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "%s info", "htb")
+	})
+	g.Any("/any", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "%s any", "test")
 	})
 	engine.Run()
 }
